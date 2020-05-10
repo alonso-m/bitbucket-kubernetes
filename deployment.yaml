@@ -41,7 +41,7 @@ spec:
         - secretRef:
             name: server-proxy-name
         - secretRef:
-            name: postgres-user-creds
+            name: bitbucket-db-user-creds
         volumeMounts:
         - mountPath: "/var/atlassian/application-data/bitbucket/shared"
           name: bitbucket-pv
