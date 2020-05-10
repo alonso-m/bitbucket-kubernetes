@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitbucket
+  labels:
+    app: bitbucket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitbucket
+  template:
+    metadata:
+      labels:
+        app: bitbucket
+    spec:    
+      hostname: bitbucket
+      initContainers:
+      - name: change-home-ownership
+        image: busybox
+        command:
+        - chown
+        - -R
+        - 2003:2003
+        - /var/atlassian/application-data/bitbucket/shared
+        volumeMounts:
+        - name: bitbucket-pv
+          mountPath: "/var/atlassian/application-data/bitbucket/shared"
+      containers:
+      - name: bitbucket
+        image: maikimaiko/arm64v8-atlassian-bitbucket-server:7.1.1
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 7990
+          name: http
+        - containerPort: 7999
+          name: ssh
+        envFrom:
+        - configMapRef:
+            name: bitbucket-config  
+        - secretRef:
+            name: server-proxy-name
+        - secretRef:
+            name: postgres-user-creds
+        volumeMounts:
+        - mountPath: "/var/atlassian/application-data/bitbucket/shared"
+          name: bitbucket-pv
+      volumes:
+      - name: bitbucket-pv
+        persistentVolumeClaim:
+          claimName: bitbucket-pvc

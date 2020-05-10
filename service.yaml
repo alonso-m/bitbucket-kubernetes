@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitbucket
+spec:
+  selector:
+    app: bitbucket
+  ports:
+  - port: 7990 
+    name: http
+    protocol: TCP
+  - port: 7999
+    name: ssh
+    protocol: TCP

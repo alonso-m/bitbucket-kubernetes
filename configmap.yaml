@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bitbucket-config
+  labels:
+    app: bitbucket
+data:
+  SERVER_PROXY_PORT: "443"
+  SERVER_SCHEME: https
+  SERVER_SECURE: "true"
+  SERVER_CONTEXT-PATH: "/bitbucket"
+  JDBC_DRIVER: "org.postgresql.Driver"
+  JDBC_URL: jdbc:postgresql://postgres:5432/bitbucket?targetServerType=master
