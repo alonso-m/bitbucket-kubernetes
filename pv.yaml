@@ -14,5 +14,5 @@ spec:
     - lookupcache=pos
     - noatime
   nfs:
-    path: /export/ssd/bitbucket
-    server: node06
+    path: /zfs/application-data/bitbucket
+    server: node05

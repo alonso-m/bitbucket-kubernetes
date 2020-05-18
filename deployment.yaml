@@ -28,8 +28,8 @@ spec:
           mountPath: "/var/atlassian/application-data/bitbucket/shared"
       containers:
       - name: bitbucket
-        image: maikimaiko/arm64v8-atlassian-bitbucket-server:7.1.1
-        imagePullPolicy: "Always"
+        image: alonsomiguel/arm64v8-bitbucket-server:7.2.3
+        imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 7990
           name: http
