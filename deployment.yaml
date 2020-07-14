@@ -6,6 +6,8 @@ metadata:
     app: bitbucket
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: bitbucket
@@ -14,35 +16,25 @@ spec:
       labels:
         app: bitbucket
     spec:    
-      affinity:                                            
-        podAntiAffinity:                                   
-          preferredDuringSchedulingIgnoredDuringExecution: 
-          - weight: 100                                    
-            podAffinityTerm:                               
-              labelSelector:                               
-                matchExpressions:                          
-                - key: app                                 
-                  operator: In                             
-                  values:                                  
-                  - wordpress                              
-                  - bamboo                                 
-                  - nextcloud                              
-                  key: app.kubernetes.io/instance          
-                  operator: In                             
-                  values:                                  
-                  - jellyfin                               
-              topologyKey: "kubernetes.io/hostname"        
-        podAffinity:                                       
-          preferredDuringSchedulingIgnoredDuringExecution: 
-          - weight: 100                                    
-            podAffinityTerm:                               
-              labelSelector:                               
-                matchExpressions:                          
-                - key: app                                 
-                  operator: In                             
-                  values:                                  
-                  - postgres                                  
-              topologyKey: "kubernetes.io/hostname"        
+    #      affinity:                                            
+    #        podAntiAffinity:                                   
+    #          preferredDuringSchedulingIgnoredDuringExecution: 
+    #          - weight: 100                                    
+    #            podAffinityTerm:                               
+    #              labelSelector:                               
+    #                matchExpressions:                          
+    #                - key: app                                 
+    #                  operator: In                             
+    #                  values:                                  
+    #                  - wordpress                              
+    #                  - wordpress-javier                             
+    #                  - bamboo                                 
+    #                  - nextcloud                              
+    #                  key: app.kubernetes.io/instance          
+    #                  operator: In                             
+    #                  values:                                  
+    #                  - jellyfin                               
+    #              topologyKey: "kubernetes.io/hostname"        
       hostname: bitbucket
       initContainers:
       - name: change-home-ownership
@@ -74,6 +66,8 @@ spec:
         volumeMounts:
         - mountPath: "/var/atlassian/application-data/bitbucket/shared"
           name: bitbucket-pv
+      nodeSelector:
+        k3s.io/hostname: "node04"
       volumes:
       - name: bitbucket-pv
         persistentVolumeClaim:
