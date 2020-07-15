@@ -11,3 +11,5 @@ data:
   SERVER_CONTEXT-PATH: "/bitbucket"
   JDBC_DRIVER: "org.postgresql.Driver"
   JDBC_URL: jdbc:postgresql://postgres:5432/bitbucket?targetServerType=master
+  JVM_MINIMUM_MEMORY: "768m"
+  JVM_MAXIMUM_MEMORY: "768m"
