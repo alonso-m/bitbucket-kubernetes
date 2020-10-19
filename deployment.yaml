@@ -66,6 +66,11 @@ spec:
         volumeMounts:
         - mountPath: "/var/atlassian/application-data/bitbucket/shared"
           name: bitbucket-pv
+        readinessProbe:
+          tcpSocket:
+            port: 7999
+          initialDelaySeconds: 600
+          periodSeconds: 10
       nodeSelector:
         k3s.io/hostname: "node04"
       volumes:
