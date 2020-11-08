@@ -6,9 +6,10 @@ metadata:
     app: bitbucket
 data:
   SERVER_PROXY_PORT: "443"
+  SERVER_PROXY_NAME: "code.malonso.me"
   SERVER_SCHEME: https
   SERVER_SECURE: "true"
-  SERVER_CONTEXT-PATH: "/bitbucket"
+  #  SERVER_CONTEXT-PATH: "/bitbucket"
   JDBC_DRIVER: "org.postgresql.Driver"
   JDBC_URL: jdbc:postgresql://postgres:5432/bitbucket?targetServerType=master
   JVM_MINIMUM_MEMORY: "768m"
