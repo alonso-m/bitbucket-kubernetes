@@ -49,8 +49,8 @@ spec:
           mountPath: "/var/atlassian/application-data/bitbucket/shared"
       containers:
       - name: bitbucket
-        image: alonsomiguel/arm64v8-bitbucket-server:7.10.1
-        imagePullPolicy: "IfNotPresent"
+        image: atlassian/bitbucket-server:latest
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 7990
           name: http
@@ -71,8 +71,13 @@ spec:
           #            port: 7999
           #          initialDelaySeconds: 600
           #          periodSeconds: 10
+      tolerations:
+      - key: "node-role.kubernetes.io/master"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
       nodeSelector:
-        k3s.io/hostname: "node04"
+        k3s.io/hostname: "node00"
       volumes:
       - name: bitbucket-pv
         persistentVolumeClaim:
